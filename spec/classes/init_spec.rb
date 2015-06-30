@@ -21,11 +21,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/ntp.drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.debian',
+        :sysconfig_options   => '-g -x',
       },
     'el5' =>
       { :osfamily            => 'RedHat',
         :operatingsystem     => 'RedHat',
         :release             => '5',
+        :osrelease           => '5.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['ntp'],
@@ -40,11 +43,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/ntp.drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.rhel5',
+        :sysconfig_options   => '-u ntp:ntp -p /var/run/ntpd.pid -x',
       },
     'el6' =>
       { :osfamily            => 'RedHat',
         :operatingsystem     => 'RedHat',
         :release             => '6',
+        :osrelease           => '6.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['ntp'],
@@ -59,11 +65,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/ntp.drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.rhel6',
+        :sysconfig_options   => '-u ntp:ntp -p /var/run/ntpd.pid -g -x',
       },
     'el7' =>
       { :osfamily            => 'RedHat',
         :operatingsystem     => 'RedHat',
         :release             => '7',
+        :osrelease           => '7.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['ntp'],
@@ -78,11 +87,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.rhel7',
+        :sysconfig_options   => '-g -x',
       },
     'suse9' =>
       { :osfamily            => 'Suse',
         :operatingsystem     => 'SLES',
         :release             => '9',
+        :osrelease           => '9.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['xntp'],
@@ -97,11 +109,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/drift/ntp.drift',
         :keys                => '',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse9',
+        :sysconfig_options   => '',
       },
     'suse10' =>
       { :osfamily            => 'Suse',
         :operatingsystem     => 'SLES',
         :release             => '10',
+        :osrelease           => '10.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['xntp'],
@@ -116,11 +131,14 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/drift/ntp.drift',
         :keys                => '',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse10',
+        :sysconfig_options   => '-u ntp -x',
       },
-    'suse11' =>
+    'suse11.0' =>
       { :osfamily            => 'Suse',
         :operatingsystem     => 'SLES',
         :release             => '11',
+        :osrelease           => '11.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['ntp'],
@@ -135,11 +153,80 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/drift/ntp.drift',
         :keys                => '',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse11.0',
+        :sysconfig_options   => '-g -u ntp:ntp -x'
+      },
+    'suse11.1' =>
+      { :osfamily            => 'Suse',
+        :operatingsystem     => 'SLES',
+        :release             => '11',
+        :osrelease           => '11.1',
+        :kernel              => 'Linux',
+        :virtual             => 'physical',
+        :package_name        => ['ntp'],
+        :package_noop        => false,
+        :package_source      => nil,
+        :package_adminfile   => nil,
+        :restrict_options    => [ '-4 default kod notrap nomodify nopeer noquery', '-6 default kod notrap nomodify nopeer noquery', ],
+        :restrict_localhost  => [ '127.0.0.1', '::1', ],
+        :step_tickers_ensure => 'absent',
+        :service_name        => 'ntp',
+        :config_file         => '/etc/ntp.conf',
+        :driftfile           => '/var/lib/ntp/drift/ntp.drift',
+        :keys                => '',
+        :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse11.1',
+        :sysconfig_options   => '-g -u ntp:ntp -x'
+      },
+    'suse11.2' =>
+      { :osfamily            => 'Suse',
+        :operatingsystem     => 'SLES',
+        :release             => '11',
+        :osrelease           => '11.2',
+        :kernel              => 'Linux',
+        :virtual             => 'physical',
+        :package_name        => ['ntp'],
+        :package_noop        => false,
+        :package_source      => nil,
+        :package_adminfile   => nil,
+        :restrict_options    => [ '-4 default kod notrap nomodify nopeer noquery', '-6 default kod notrap nomodify nopeer noquery', ],
+        :restrict_localhost  => [ '127.0.0.1', '::1', ],
+        :step_tickers_ensure => 'absent',
+        :service_name        => 'ntp',
+        :config_file         => '/etc/ntp.conf',
+        :driftfile           => '/var/lib/ntp/drift/ntp.drift',
+        :keys                => '',
+        :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse11.2',
+        :sysconfig_options   => '-g -u ntp:ntp -x'
+      },
+    'suse11.3' =>
+      { :osfamily            => 'Suse',
+        :operatingsystem     => 'SLES',
+        :release             => '11',
+        :osrelease           => '11.3',
+        :kernel              => 'Linux',
+        :virtual             => 'physical',
+        :package_name        => ['ntp'],
+        :package_noop        => false,
+        :package_source      => nil,
+        :package_adminfile   => nil,
+        :restrict_options    => [ '-4 default kod notrap nomodify nopeer noquery', '-6 default kod notrap nomodify nopeer noquery', ],
+        :restrict_localhost  => [ '127.0.0.1', '::1', ],
+        :step_tickers_ensure => 'absent',
+        :service_name        => 'ntp',
+        :config_file         => '/etc/ntp.conf',
+        :driftfile           => '/var/lib/ntp/drift/ntp.drift',
+        :keys                => '',
+        :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse11.3',
+        :sysconfig_options   => '-g -u ntp:ntp -x'
       },
     'suse12' =>
       { :osfamily            => 'Suse',
         :operatingsystem     => 'SLES',
         :release             => '12',
+        :osrelease           => '12.0',
         :kernel              => 'Linux',
         :virtual             => 'physical',
         :package_name        => ['ntp'],
@@ -154,6 +241,8 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/drift/ntp.drift',
         :keys                => '',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.suse12',
+        :sysconfig_options   => '-g -u ntp:ntp -x'
       },
     'solaris9' =>
       { :osfamily            => 'Solaris',
@@ -173,6 +262,7 @@ describe 'ntp' do
         :driftfile           => '/var/ntp/ntp.drift',
         :keys                => '/etc/inet/ntp.keys',
         :enable_tinker       => false,
+        :sysconfig_fixture   => 'sysconfig.unused',
       },
     'solaris10' =>
       { :osfamily            => 'Solaris',
@@ -192,6 +282,7 @@ describe 'ntp' do
         :driftfile           => '/var/ntp/ntp.drift',
         :keys                => '/etc/inet/ntp.keys',
         :enable_tinker       => false,
+        :sysconfig_fixture   => 'sysconfig.unused',
       },
     'solaris11' =>
       { :osfamily            => 'Solaris',
@@ -211,6 +302,7 @@ describe 'ntp' do
         :driftfile           => '/var/ntp/ntp.drift',
         :keys                => '/etc/inet/ntp.keys',
         :enable_tinker       => false,
+        :sysconfig_fixture   => 'sysconfig.unused',
       },
     'ubuntu1204' =>
       { :osfamily            => 'Debian',
@@ -230,6 +322,8 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/ntp.drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.debian',
+        :sysconfig_options   => '-g -x',
       },
     'xenu' =>
       { :osfamily            => 'RedHat',
@@ -249,6 +343,8 @@ describe 'ntp' do
         :driftfile           => '/var/lib/ntp/ntp.drift',
         :keys                => '/etc/ntp/keys',
         :enable_tinker       => true,
+        :sysconfig_fixture   => 'sysconfig.rhel5',
+        :sysconfig_options   => '-u ntp:ntp -p /var/run/ntpd.pid -x',
       },
   }
 
@@ -266,20 +362,21 @@ describe 'ntp' do
       context "#{k}" do
         if v[:osfamily] == 'Solaris'
           let :facts do
-            { :osfamily        => v[:osfamily],
-              :operatingsystem => v[:operatingsystem],
-              :kernelrelease   => v[:release],
-              :kernel          => v[:kernel],
-              :virtual         => v[:virtual],
+            { :osfamily               => v[:osfamily],
+              :operatingsystem        => v[:operatingsystem],
+              :kernelrelease          => v[:release],
+              :kernel                 => v[:kernel],
+              :virtual                => v[:virtual],
             }
           end
         else
           let :facts do
-            { :osfamily          => v[:osfamily],
-              :operatingsystem   => v[:operatingsystem],
-              :lsbmajdistrelease => v[:release],
-              :kernel            => v[:kernel],
-              :virtual           => v[:virtual],
+            { :osfamily               => v[:osfamily],
+              :operatingsystem        => v[:operatingsystem],
+              :operatingsystemrelease => v[:osrelease],
+              :lsbmajdistrelease      => v[:release],
+              :kernel                 => v[:kernel],
+              :virtual                => v[:virtual],
             }
           end
         end
@@ -313,6 +410,13 @@ describe 'ntp' do
           }
 
           package_require = "Package[#{v[:package_name]}]"
+        end
+
+        if v[:kernel] == 'Linux'
+          sysconfig_fixture = File.read(fixtures("#{v[:sysconfig_fixture]}"))
+          it {
+            should contain_file('ntp_sysconfig').with_content(sysconfig_fixture)
+          }
         end
 
         it {
@@ -432,8 +536,38 @@ describe 'ntp' do
     end
   end
 
+  describe 'sysconfig file with non-default values for parameters on' do
+    platforms.sort.each do |k,v|
+      context "#{k}" do
+        let :facts do
+          { :kernel                 => v[:kernel],
+            :osfamily               => v[:osfamily],
+            :operatingsystemrelease => v[:osrelease],
+            :lsbmajdistrelease      => v[:release],
+          }
+        end
+        let :params do
+          { :sysconfig_options      => v[:sysconfig_options],
+          }
+        end
+
+        if v[:kernel] == 'Linux'
+          sysconfig_fixture = File.read(fixtures("#{v[:sysconfig_fixture]}"))
+          it {
+           should contain_file('ntp_sysconfig').with_content(/#{v[:sysconfig_options]}/)
+          }
+        end
+      end
+    end
+  end
+
   describe 'with driftfile set to' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     [ '', '/var/lib/ntp/ntp.drift','/etc/ntp/drift'].each do |value|
       context "valid #{value} as #{value.class}" do
@@ -461,7 +595,12 @@ describe 'ntp' do
   end
 
   describe 'with enable_stats' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     ['true',true].each do |value|
       context "specified as #{value}" do
@@ -480,7 +619,12 @@ describe 'ntp' do
     end
 
     context 'as an invalid type (non-boolean)' do
-      let(:facts) { { :osfamily => 'RedHat' } }
+      let :facts do
+        {
+          :osfamily          => 'RedHat',
+          :lsbmajdistrelease => '6',
+        }
+      end
       let(:params) { { :enable_stats => ['not','a','boolean'] } }
 
       it do
@@ -492,9 +636,16 @@ describe 'ntp' do
   end
 
   describe 'with statsdir' do
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
+
     context 'specified as a valid path' do
       context 'with enable_stats as true' do
-        let(:facts) { { :osfamily => 'RedHat' } }
+
         let(:params) do
           {
             :enable_stats => true,
@@ -506,7 +657,6 @@ describe 'ntp' do
       end
 
       context 'with enable_stats as false' do
-        let(:facts) { { :osfamily => 'RedHat' } }
         let(:params) do
           {
             :enable_stats => false,
@@ -519,7 +669,6 @@ describe 'ntp' do
     end
 
     context 'specified as an invalid path' do
-      let(:facts) { { :osfamily => 'RedHat' } }
       let(:params) { { :statsdir => 'invalid/path' } }
 
       it do
@@ -531,7 +680,12 @@ describe 'ntp' do
   end
 
   describe 'with keys set to' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     [ '', '/var/lib/ntp/keys','/etc/ntp/keysfile'].each do |value|
       context "valid #{value} as #{value.class}" do
@@ -559,7 +713,12 @@ describe 'ntp' do
   end
 
   describe 'with peers param set' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     context 'to a hash' do
       let(:params) { { :peers => peers } }
@@ -684,7 +843,12 @@ describe 'ntp' do
 
   context 'with invalid value for step_tickers_ensure param' do
     let(:params) { { :step_tickers_ensure => 'invalid' } }
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily           => 'RedHat',
+        :lsbmajdistrelease  => '6',
+      }
+    end
 
     it do
       expect {
@@ -695,7 +859,12 @@ describe 'ntp' do
 
   context 'with invalid path for step_tickers_path param' do
     let(:params) { { :step_tickers_path => 'invalid/path' } }
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily           => 'RedHat',
+        :lsbmajdistrelease  => '6',
+      }
+    end
 
     it do
       expect {
@@ -707,7 +876,12 @@ describe 'ntp' do
   [true,'true'].each do |value|
     context "with ignore_local_clock set to #{value}" do
       let(:params) { { :ignore_local_clock => value } }
-      let(:facts) { { :osfamily => 'RedHat' } }
+      let :facts do
+        {
+          :osfamily          => 'RedHat',
+          :lsbmajdistrelease => '6',
+        }
+      end
 
       it { should contain_file('ntp_conf').without_content(/^server\s+127.127.1.0/) }
       it { should contain_file('ntp_conf').without_content(/^fudge\s+127.127.1.0 stratum 10/) }
@@ -716,7 +890,12 @@ describe 'ntp' do
 
   context 'with invalid ignore_local_clock 1' do
     let(:params) { { :ignore_local_clock => ['bad','input'] } }
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     it do
       expect {
@@ -727,7 +906,12 @@ describe 'ntp' do
 
   context 'with invalid ignore_local_clock 2' do
     let(:params) { { :ignore_local_clock => 'nottrue' } }
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     it do
       expect {
@@ -738,9 +922,10 @@ describe 'ntp' do
 
   context 'on Linux physical machine' do
     let :facts do
-      { :osfamily => 'RedHat',
-        :virtual  => 'physical',
-	      :kernel   => 'Linux'
+      { :osfamily           => 'RedHat',
+        :lsbmajdistrelease  =>  '6',
+        :virtual            => 'physical',
+	      :kernel             => 'Linux'
       }
     end
 
@@ -749,9 +934,10 @@ describe 'ntp' do
 
   context 'on Linux Xen guest' do
     let :facts do
-      { :osfamily => 'RedHat',
-        :virtual  => 'xenu',
-        :kernel   => 'Linux'
+      { :osfamily           => 'RedHat',
+        :lsbmajdistrelease  =>  '6',
+        :virtual            => 'xenu',
+        :kernel             => 'Linux'
       }
     end
 
@@ -771,7 +957,12 @@ describe 'ntp' do
   end
 
   describe 'with package_name set' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     context 'to an array' do
       let(:params) { { :package_name => ['ntp','ntphelper'] } }
@@ -817,7 +1008,12 @@ describe 'ntp' do
   end
 
   describe 'with restrict_options set' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     context 'to valid \'default kod notrap\'' do
       let(:params) { { :restrict_options => 'default kod notrap' } }
@@ -846,7 +1042,12 @@ describe 'ntp' do
   end
 
   describe 'with restrict_localhost set' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     context 'to valid [ \'10.0.0.0\', \'127.0.0.2\', ]' do
       let(:params) { { :restrict_localhost => [ '10.0.0.0', '127.0.0.2', ] } }
@@ -875,7 +1076,12 @@ describe 'ntp' do
   end
 
   describe 'with disable_monitor set' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     [true,'true',false,'false'].each do |value|
       context "to #{value} as #{value.class}" do
@@ -905,7 +1111,12 @@ describe 'ntp' do
   end
 
   describe 'with enable_tinker set to' do
-    let(:facts) { { :osfamily => 'RedHat' } }
+    let :facts do
+      {
+        :osfamily          => 'RedHat',
+        :lsbmajdistrelease => '6',
+      }
+    end
 
     [true,'true',false,'false'].each do |value|
       context "valid #{value} as #{value.class}" do
